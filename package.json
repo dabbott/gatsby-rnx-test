@@ -4,9 +4,12 @@
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@mdx-js/mdx": "^0.15.0",
+    "@mdx-js/tag": "^0.15.0",
     "babel-plugin-styled-components": "^1.5.1",
     "gatsby": "next",
     "gatsby-cli": "^1.1.58",
+    "gatsby-mdx": "^0.0.10",
     "gatsby-plugin-manifest": "next",
     "gatsby-plugin-offline": "next",
     "gatsby-plugin-react-helmet": "next",
@@ -29,7 +32,6 @@
   },
   "devDependencies": {
     "@mdx-js/loader": "^0.15.0",
-    "@mdx-js/mdx": "^0.15.0",
     "loader-utils": "^1.1.0",
     "prettier": "^1.13.7"
   },

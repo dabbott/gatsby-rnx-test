@@ -17,6 +17,12 @@ module.exports = {
       },
     },
     'gatsby-plugin-styled-components',
+    {
+      resolve: `gatsby-mdx`,
+      options: {
+        extensions: ['.mdx', '.md'],
+      },
+    },
     'gatsby-plugin-offline',
   ],
 }
