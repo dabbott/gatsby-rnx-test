@@ -15,7 +15,7 @@ export default class GithubCorner extends React.Component {
           style={{
             fill: '#263053',
             color: '#fff',
-            position: 'fixed',
+            position: 'absolute',
             top: 0,
             border: 0,
             right: 0,

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import Banner from './Banner'
-import Content from './Content'
 import Title from './Title'
 import Subtitle from './Subtitle'
 import ShowAt from './ShowAt'
@@ -21,6 +20,12 @@ const ContentContainer = styled.div({
   borderTop: '1px solid rgba(220,220,220,0.5)',
   backgroundColor: 'white',
   padding: '60px 60px 40px 60px',
+})
+
+const Content = styled.div({
+  flex: '1 1 auto',
+  minWidth: '0',
+  minHeight: '0',
 })
 
 const Mobile = styled.div({
@@ -69,7 +74,7 @@ export default class Page extends Component {
                   />
                 )}
               </Banner>
-              <Content paddingTop={bannerHeight}>
+              <Content>
                 <ContentContainer>{children}</ContentContainer>
                 {footer}
               </Content>
