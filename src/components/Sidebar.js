@@ -145,7 +145,11 @@ export default class Sidebar extends Component {
       depth === 1 && list[i + 1] && list[i + 1].depth === 2
 
     return (
-      <SidebarRow small={!majorOrMinor} centered={centered}>
+      <SidebarRow
+        small={!majorOrMinor}
+        centered={centered}
+        key={`${major}.${minor}.${patch}`}
+      >
         <Numeral centered={centered}>{majorOrMinor ? numeral : ''}</Numeral>
 
         <Link
