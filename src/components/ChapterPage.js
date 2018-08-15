@@ -13,6 +13,7 @@ import PageHeader from './PageHeader'
 import NavigatorButton from './NavigatorButton'
 import HamburgerButton from './HamburgerButton'
 import Disqus from './Disqus'
+import BookBanner from './BookBanner'
 import {
   getSection,
   getNextSection,
@@ -115,6 +116,7 @@ class ChapterPage extends React.Component {
 
     const slug = this.props['*']
 
+    const isIntroduction = slug === ''
     const section = getSection(slug)
 
     if (!section) return `Could not find page: ${slug}`
@@ -133,9 +135,21 @@ class ChapterPage extends React.Component {
             previousSection={previousSection}
           />
         </NavigatorButtonContainer>
+        {!isIntroduction && <BookBanner />}
         <Footer>
-          <Disqus title={title} identifier={slug} url={window.location.href} />
+          {/* <Disqus title={title} identifier={slug} url={window.location.href} /> */}
         </Footer>
+      </>
+    )
+
+    const contents = (
+      <>
+        <PageHeader
+          title={title}
+          author={author.name || '@dvnabbott'}
+          authorURL={author.url || 'https://twitter.com/dvnabbott'}
+        />
+        {children}
       </>
     )
 
@@ -167,11 +181,11 @@ class ChapterPage extends React.Component {
                   <HideAt
                     style={{
                       flex: '0 0 280px',
-                      overflowY: 'auto',
                     }}
                     breakpoint="small"
+                    flex
                   >
-                    <SidebarContainer tabIndex="-1">
+                    <SidebarContainer>
                       <Sidebar currentSection={section} />
                     </SidebarContainer>
                   </HideAt>
@@ -185,14 +199,23 @@ class ChapterPage extends React.Component {
                       <HamburgerButton onPress={this.toggleMenu} />
                     </ShowAt>
                   </MenuButtonContainer>
-                  <Page title={title} footer={footer}>
-                    <PageHeader
-                      title={title}
-                      author={author.name || '@dvnabbott'}
-                      authorURL={author.url || 'https://twitter.com/dvnabbott'}
-                    />
-                    {children}
-                  </Page>
+                  {isIntroduction ? (
+                    <Page
+                      title={'React Native Express'}
+                      subtitle={
+                        'Learn React Native, the cross-platform app framework'
+                      }
+                      footer={footer}
+                      bannerHeight={560}
+                      showLogo
+                    >
+                      {contents}
+                    </Page>
+                  ) : (
+                    <Page title={title} footer={footer}>
+                      {contents}
+                    </Page>
+                  )}
                 </Content>
               </Inner>
               {showMenu && (

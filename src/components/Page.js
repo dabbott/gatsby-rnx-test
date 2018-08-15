@@ -7,6 +7,7 @@ import Subtitle from './Subtitle'
 import ShowAt from './ShowAt'
 import HideAt from './HideAt'
 import MarkdownProvider from './MarkdownProvider'
+import GithubCorner from './GithubCorner'
 
 const Container = styled.div({
   flex: '1 1 auto',
@@ -28,13 +29,11 @@ const Mobile = styled.div({
   // overflowY: 'scroll',
 })
 
-const Logo = styled.img(({ image, image2x, width, height }) => ({
+const Logo = styled.img({
   paddingTop: '40px',
-  src: image,
-  srcSet: `${image} 1x, ${image2x || image} 2x`,
-  width: `${width}px`,
-  height: `${height}px`,
-}))
+  width: '256px',
+  height: '296px',
+})
 
 export default class Page extends Component {
   render() {
@@ -44,9 +43,7 @@ export default class Page extends Component {
       title,
       subtitle,
       bannerHeight,
-      logo,
-      logoWidth,
-      logoHeight,
+      showLogo,
     } = this.props
 
     return (
@@ -63,16 +60,13 @@ export default class Page extends Component {
               <Banner height={bannerHeight}>
                 <Title>{title}</Title>
                 {subtitle && <Subtitle>{subtitle}</Subtitle>}
-                {logo && (
+                {showLogo && (
                   <Logo
-                    image={
-                      'https://cdn.rawgit.com/dabbott/react-native-express/master/static/logo.png'
-                    }
-                    image2x={
-                      'https://cdn.rawgit.com/dabbott/react-native-express/master/static/logo@2x.png'
-                    }
-                    width={logoWidth}
-                    height={logoHeight}
+                    src="https://cdn.rawgit.com/dabbott/react-native-express/master/static/logo@2x.png"
+                    srcSet={[
+                      'https://cdn.rawgit.com/dabbott/react-native-express/master/static/logo.png 1x',
+                      'https://cdn.rawgit.com/dabbott/react-native-express/master/static/logo@2x.png 2x',
+                    ].join(',')}
                   />
                 )}
               </Banner>

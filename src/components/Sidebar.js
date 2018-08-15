@@ -26,6 +26,7 @@ const SidebarRowsContainer = styled.div(({ centered }) => ({
   flexDirection: 'column',
   alignItems: centered ? 'center' : 'stretch',
   backgroundColor: 'white',
+  outline: 'none',
 }))
 
 const SidebarRow = styled.div(({ small, centered }) => ({
@@ -184,7 +185,7 @@ export default class Sidebar extends Component {
             <SidebarTitleLink>React Native Express</SidebarTitleLink>
           </Link>
         </SidebarTitle>
-        <SidebarRowsContainer centered={centered}>
+        <SidebarRowsContainer centered={centered} tabIndex="-1">
           {chapters.map(group => {
             return [
               group.map(this.renderRow),

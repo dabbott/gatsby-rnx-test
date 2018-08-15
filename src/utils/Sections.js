@@ -1,5 +1,12 @@
 let sections = [
   {
+    hidden: true,
+    depth: 0,
+    title: 'Learning React Native',
+    slug: '',
+    componentName: 'Introduction',
+  },
+  {
     depth: 0,
     title: 'Environment',
     slug: 'environment',
@@ -333,8 +340,13 @@ let sections = [
 // how the sections should be numbered and arranged: {major}.{minor}.{patch}.
 sections = sections.reduce(
   (acc, section) => {
+    const { depth, hidden } = section
     let { major, minor, patch, sections } = acc
-    const { depth } = section
+
+    if (hidden) {
+      sections.push(section)
+      return acc
+    }
 
     if (depth === 0) {
       major++
@@ -400,7 +412,11 @@ export const getNextSection = path => getSection(path, 1)
 export const getPreviousSection = path => getSection(path, -1)
 
 export const chapters = sections.reduce((ch, section) => {
-  const { depth } = section
+  const { depth, hidden } = section
+
+  if (hidden) {
+    return ch
+  }
 
   if (depth === 0) {
     ch.push([])

@@ -38,14 +38,50 @@ const HideAtSmall = styled.div({
   },
 })
 
-export default function HideAt({ breakpoint, ...rest }) {
+const HideAtLargeFlex = styled.div({
+  [mediaQuery.small]: {
+    display: 'flex',
+  },
+  [mediaQuery.medium]: {
+    display: 'flex',
+  },
+  [mediaQuery.large]: {
+    display: 'none',
+  },
+})
+
+const HideAtMediumFlex = styled.div({
+  [mediaQuery.small]: {
+    display: 'flex',
+  },
+  [mediaQuery.medium]: {
+    display: 'none',
+  },
+  [mediaQuery.large]: {
+    display: 'flex',
+  },
+})
+
+const HideAtSmallFlex = styled.div({
+  [mediaQuery.small]: {
+    display: 'none',
+  },
+  [mediaQuery.medium]: {
+    display: 'flex',
+  },
+  [mediaQuery.large]: {
+    display: 'flex',
+  },
+})
+
+export default function HideAt({ breakpoint, flex, ...rest }) {
   switch (breakpoint) {
     case 'small':
-      return <HideAtSmall {...rest} />
+      return flex ? <HideAtSmallFlex {...rest} /> : <HideAtSmall {...rest} />
     case 'medium':
-      return <HideAtMedium {...rest} />
+      return flex ? <HideAtMediumFlex {...rest} /> : <HideAtMedium {...rest} />
     case 'large':
-      return <HideAtLarge {...rest} />
+      return flex ? <HideAtLargeFlex {...rest} /> : <HideAtLarge {...rest} />
     default:
       throw new Error('Invalid HideAt breakpoint')
   }
