@@ -7,6 +7,7 @@ import mediaQuery from '../utils/mediaQuery'
 
 import Page from './Page'
 import HideAt from './HideAt'
+import ShowAt from './ShowAt'
 import Sidebar from './Sidebar'
 import PageHeader from './PageHeader'
 import NavigatorButton from './NavigatorButton'
@@ -55,6 +56,17 @@ const SidebarContainer = styled.div({
   outline: 'none',
 })
 
+const MenuContainer = styled.div({
+  position: 'absolute',
+  top: '0',
+  bottom: '0',
+  left: '0',
+  right: '0',
+  zIndex: '10000',
+  backgroundColor: 'white',
+  overflowY: 'auto',
+})
+
 const NavigatorButtonContainer = styled.div({
   padding: '0 60px 40px 60px',
   [mediaQuery.small]: {
@@ -78,8 +90,6 @@ class ChapterPage extends React.Component {
   toggleSidebar = () => {
     const { showSidebar } = this.state
 
-    console.log('toggle sidebar', showSidebar)
-
     this.setState({ showSidebar: !showSidebar })
   }
 
@@ -91,7 +101,7 @@ class ChapterPage extends React.Component {
 
   render() {
     const { children } = this.props
-    const { showSidebar } = this.state
+    const { showSidebar, showMenu } = this.state
 
     const slug = this.props['*']
 
@@ -152,11 +162,14 @@ class ChapterPage extends React.Component {
                   </HideAt>
                 )}
                 <Content>
-                  <HideAt style={{ position: 'absolute' }} breakpoint="small">
-                    <MenuButtonContainer>
+                  <MenuButtonContainer>
+                    <HideAt breakpoint="small">
                       <HamburgerButton onPress={this.toggleSidebar} />
-                    </MenuButtonContainer>
-                  </HideAt>
+                    </HideAt>
+                    <ShowAt breakpoint="small">
+                      <HamburgerButton onPress={this.toggleMenu} />
+                    </ShowAt>
+                  </MenuButtonContainer>
                   <Page title={title} footer={footer}>
                     <PageHeader
                       title={title}
@@ -167,13 +180,13 @@ class ChapterPage extends React.Component {
                   </Page>
                 </Content>
               </Inner>
-              {/* {responsive.match("small|mobile") &&
-              showMenu &&
-              <Sidebar
-                style={styles.menu}
-                currentSection={section}
-                centered={true}
-              />} */}
+              {showMenu && (
+                <ShowAt breakpoint="small">
+                  <MenuContainer tabIndex="-1">
+                    <Sidebar currentSection={section} centered />
+                  </MenuContainer>
+                </ShowAt>
+              )}
             </Container>
           </>
         )}

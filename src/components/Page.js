@@ -53,7 +53,7 @@ export default class Page extends Component {
       <MarkdownProvider>
         <>
           <ShowAt breakpoint={'small'}>
-            <Mobile>
+            <Mobile tabIndex={'-1'}>
               {children}
               {footer}
             </Mobile>

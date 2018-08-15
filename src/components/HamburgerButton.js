@@ -32,7 +32,7 @@ export default class HamburgerButton extends Component {
   onMouseUp = () => this.setState({ pressed: false })
 
   render() {
-    const { getStyles, style, barCount, onPress } = this.props
+    const { barCount, onPress } = this.props
     const { pressed } = this.state
 
     const elements = []

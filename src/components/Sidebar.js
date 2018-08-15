@@ -4,14 +4,12 @@ import { Link } from 'gatsby'
 
 import { chapters } from '../utils/Sections'
 
-const centered = false
-
-const SidebarTitle = styled.div({
+const SidebarTitle = styled.div(({ centered }) => ({
   paddingLeft: centered ? '0' : '35px',
   textAlign: centered ? 'center' : 'left',
   margin: '0',
   borderBottom: '1px solid rgba(220,220,220,0.5)',
-})
+}))
 
 const SidebarTitleLink = styled.div({
   flex: '0 0 auto',
@@ -21,16 +19,16 @@ const SidebarTitleLink = styled.div({
   color: '#263053',
 })
 
-const SidebarRowsContainer = styled.div({
+const SidebarRowsContainer = styled.div(({ centered }) => ({
   overflowY: 'auto',
   paddingTop: '30px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: centered ? 'center' : 'stretch',
   backgroundColor: 'white',
-})
+}))
 
-const SidebarRow = styled.div(({ small }) => ({
+const SidebarRow = styled.div(({ small, centered }) => ({
   flex: '0 0 40px',
   display: 'flex',
   flexDirection: 'row',
@@ -42,10 +40,10 @@ const SidebarRow = styled.div(({ small }) => ({
   margin: '0',
 }))
 
-const Numeral = styled.span({
+const Numeral = styled.span(({ centered }) => ({
   flex: '0 0 50px',
   display: centered ? 'none' : 'initial',
-})
+}))
 
 const DotContainer = styled.div({
   flex: '0 0 60px',
@@ -125,6 +123,7 @@ export default class Sidebar extends Component {
     i,
     list
   ) => {
+    const { centered } = this.props
     const { expanded } = this.state
 
     if (depth === 2 && !expanded[parent]) {
@@ -146,8 +145,8 @@ export default class Sidebar extends Component {
       depth === 1 && list[i + 1] && list[i + 1].depth === 2
 
     return (
-      <SidebarRow small={!majorOrMinor}>
-        <Numeral>{majorOrMinor ? numeral : ''}</Numeral>
+      <SidebarRow small={!majorOrMinor} centered={centered}>
+        <Numeral centered={centered}>{majorOrMinor ? numeral : ''}</Numeral>
 
         <Link
           to={slug}
@@ -172,14 +171,16 @@ export default class Sidebar extends Component {
   }
 
   render() {
+    const { centered } = this.props
+
     return (
       <>
-        <SidebarTitle>
+        <SidebarTitle centered={centered}>
           <Link to={'/'}>
             <SidebarTitleLink>React Native Express</SidebarTitleLink>
           </Link>
         </SidebarTitle>
-        <SidebarRowsContainer>
+        <SidebarRowsContainer centered={centered}>
           {chapters.map(group => {
             return [
               group.map(this.renderRow),
