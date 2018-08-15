@@ -12,6 +12,7 @@ import Sidebar from './Sidebar'
 import PageHeader from './PageHeader'
 import NavigatorButton from './NavigatorButton'
 import HamburgerButton from './HamburgerButton'
+import Disqus from './Disqus'
 import {
   getSection,
   getNextSection,
@@ -81,6 +82,15 @@ const MenuButtonContainer = styled.div({
   zIndex: 12000,
 })
 
+const Footer = styled.div({
+  marginTop: 20,
+  padding: '60px',
+  [mediaQuery.small]: {
+    padding: '20px',
+  },
+  backgroundColor: 'rgb(250,250,250)',
+})
+
 class ChapterPage extends React.Component {
   state = {
     showSidebar: true,
@@ -116,12 +126,17 @@ class ChapterPage extends React.Component {
     const previousSection = getPreviousSection(slug)
 
     const footer = (
-      <NavigatorButtonContainer>
-        <NavigatorButton
-          nextSection={nextSection}
-          previousSection={previousSection}
-        />
-      </NavigatorButtonContainer>
+      <>
+        <NavigatorButtonContainer>
+          <NavigatorButton
+            nextSection={nextSection}
+            previousSection={previousSection}
+          />
+        </NavigatorButtonContainer>
+        <Footer>
+          <Disqus title={title} identifier={slug} url={window.location.href} />
+        </Footer>
+      </>
     )
 
     return (
