@@ -1,6 +1,7 @@
 import React from 'react'
 import { MDXProvider } from '@mdx-js/tag'
 import SectionHeader from './SectionHeader'
+import Paragraph from './Paragraph'
 
 // import { Link, SectionHeader } from '../components'
 
@@ -8,8 +9,8 @@ export default function MarkdownProvider({ children }) {
   return (
     <MDXProvider
       components={{
-        p: props => <div {...props} style={styles.p} />,
-        h1: props => <SectionHeader {...props} />,
+        p: Paragraph,
+        h1: SectionHeader,
         h2: props => <div {...props} style={styles.h4} />,
         strong: props => <strong {...props} style={styles.strong} />,
         table: props => <table {...props} className={'table'} />,
@@ -37,12 +38,6 @@ const styles = {
     fontSize: '14px',
     fontWeight: '500',
     marginTop: '35px',
-    marginBottom: '15px',
-  },
-  p: {
-    fontSize: '14px',
-    fontWeight: '400',
-    lineHeight: '22px',
     marginBottom: '15px',
   },
   strong: {

@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'gatsby'
 import mediaQuery from '../utils/mediaQuery'
 import HideAt from './HideAt'
 import ShowAt from './ShowAt'
+import Paragraph from './Paragraph'
+import Heading3 from './Heading3'
 
 import bookImage from '../images/fsrn-book.png'
 import bookImage2x from '../images/fsrn-book@2x.png'
@@ -76,24 +77,8 @@ const Button = styled.a({
   },
 })
 
-const Heading3 = styled.h3({
-  fontSize: '20px',
-  fontWeight: '300',
-  marginTop: '60px',
-  marginBottom: '15px',
-})
-
-const Paragraph = styled.p({
-  fontSize: '14px',
-  fontWeight: '400',
-  lineHeight: '22px',
-  marginBottom: '15px',
-})
-
 export default class BookBanner extends React.Component {
   render() {
-    const { onPress } = this.props
-
     const linkImage = (
       <a href={BOOK_URL}>
         <Image

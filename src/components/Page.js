@@ -7,7 +7,6 @@ import Subtitle from './Subtitle'
 import ShowAt from './ShowAt'
 import HideAt from './HideAt'
 import MarkdownProvider from './MarkdownProvider'
-import GithubCorner from './GithubCorner'
 
 const Container = styled.div({
   flex: '1 1 auto',
