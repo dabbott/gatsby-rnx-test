@@ -5,19 +5,19 @@ import { Link } from 'gatsby'
 import { chapters } from '../utils/Sections'
 
 const SidebarTitle = styled.div(({ centered }) => ({
-  paddingLeft: centered ? '0' : '35px',
   textAlign: centered ? 'center' : 'left',
   margin: '0',
   borderBottom: '1px solid rgba(220,220,220,0.5)',
 }))
 
-const SidebarTitleLink = styled.div({
+const SidebarTitleText = styled.div(({ centered }) => ({
+  paddingLeft: centered ? '0' : '35px',
   flex: '0 0 auto',
   fontSize: '18px',
   fontWeight: '300',
   lineHeight: '60px',
   color: '#263053',
-})
+}))
 
 const SidebarRowsContainer = styled.div(({ centered }) => ({
   overflowY: 'auto',
@@ -182,7 +182,9 @@ export default class Sidebar extends Component {
       <>
         <SidebarTitle centered={centered}>
           <Link to={'/'}>
-            <SidebarTitleLink>React Native Express</SidebarTitleLink>
+            <SidebarTitleText centered={centered}>
+              React Native Express
+            </SidebarTitleText>
           </Link>
         </SidebarTitle>
         <SidebarRowsContainer centered={centered} tabIndex="-1">
