@@ -5,7 +5,7 @@ export default styled.div(({ height }) => ({
   top: '0',
   left: '0',
   right: '0',
-  height: `${height || 400}px`,
+  height: `${height || 200}px`,
   backgroundImage: `url(//cdn.rawgit.com/dabbott/react-native-express/master/static/background-compressed.jpg)`,
   backgroundSize: 'cover',
   display: 'flex',

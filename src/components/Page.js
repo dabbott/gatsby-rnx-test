@@ -14,9 +14,10 @@ const Container = styled.div({
   flexDirection: 'column',
   minWidth: '0',
   minHeight: '0',
+  outline: 'none',
 })
 
-const Scroller = styled.div({
+const ContentContainer = styled.div({
   borderTop: '1px solid rgba(220,220,220,0.5)',
   backgroundColor: 'white',
   padding: '60px 60px 40px 60px',
@@ -58,7 +59,7 @@ export default class Page extends Component {
             </Mobile>
           </ShowAt>
           <HideAt breakpoint={'small'}>
-            <Container>
+            <Container tabIndex={'-1'}>
               <Banner height={bannerHeight}>
                 <Title>{title}</Title>
                 {subtitle && <Subtitle>{subtitle}</Subtitle>}
@@ -76,7 +77,7 @@ export default class Page extends Component {
                 )}
               </Banner>
               <Content paddingTop={bannerHeight}>
-                <Scroller>{children}</Scroller>
+                <ContentContainer>{children}</ContentContainer>
                 {footer}
               </Content>
             </Container>

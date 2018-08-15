@@ -10,6 +10,7 @@ import HideAt from './HideAt'
 import Sidebar from './Sidebar'
 import PageHeader from './PageHeader'
 import NavigatorButton from './NavigatorButton'
+import HamburgerButton from './HamburgerButton'
 import {
   getSection,
   getNextSection,
@@ -39,7 +40,8 @@ const Content = styled.div({
   position: 'relative',
   minWidth: '0',
   minHeight: '0',
-  overflowY: 'scroll',
+  overflowY: 'auto',
+  // overflowY: 'scroll',
 })
 
 const SidebarContainer = styled.div({
@@ -50,6 +52,7 @@ const SidebarContainer = styled.div({
   alignItems: 'stretch',
   minWidth: '0',
   minHeight: '0',
+  outline: 'none',
 })
 
 const NavigatorButtonContainer = styled.div({
@@ -59,101 +62,128 @@ const NavigatorButtonContainer = styled.div({
   },
 })
 
-const showSidebar = true
+const MenuButtonContainer = styled.div({
+  position: 'absolute',
+  top: '10px',
+  left: '10px',
+  zIndex: 12000,
+})
 
-const Layout = props => {
-  const { children } = props
+class ChapterPage extends React.Component {
+  state = {
+    showSidebar: true,
+    showMenu: false,
+  }
 
-  const slug = props['*']
+  toggleSidebar = () => {
+    const { showSidebar } = this.state
 
-  const section = getSection(slug)
+    console.log('toggle sidebar', showSidebar)
 
-  if (!section) return `Could not find page: ${slug}`
+    this.setState({ showSidebar: !showSidebar })
+  }
 
-  const { author = {} } = section
+  toggleMenu = () => {
+    const { showMenu } = this.state
 
-  const title = section.fullTitle || section.title
-  const nextSection = getNextSection(slug)
-  const previousSection = getPreviousSection(slug)
+    this.setState({ showMenu: !showMenu })
+  }
 
-  console.log('sections', nextSection, previousSection)
+  render() {
+    const { children } = this.props
+    const { showSidebar } = this.state
 
-  // const { title } = section
+    const slug = this.props['*']
 
-  const footer = (
-    <NavigatorButtonContainer>
-      <NavigatorButton
-        nextSection={nextSection}
-        previousSection={previousSection}
-      />
-    </NavigatorButtonContainer>
-  )
+    const section = getSection(slug)
 
-  return (
-    <StaticQuery
-      query={graphql`
-        query {
-          site {
-            siteMetadata {
-              title
+    if (!section) return `Could not find page: ${slug}`
+
+    const { author = {} } = section
+
+    const title = section.fullTitle || section.title
+    const nextSection = getNextSection(slug)
+    const previousSection = getPreviousSection(slug)
+
+    const footer = (
+      <NavigatorButtonContainer>
+        <NavigatorButton
+          nextSection={nextSection}
+          previousSection={previousSection}
+        />
+      </NavigatorButtonContainer>
+    )
+
+    return (
+      <StaticQuery
+        query={graphql`
+          query {
+            site {
+              siteMetadata {
+                title
+              }
             }
           }
-        }
-      `}
-      render={data => (
-        <>
-          <Helmet
-            // title={data.site.siteMetadata.title}
-            meta={[
-              { name: 'description', content: 'Sample' },
-              { name: 'keywords', content: 'sample, something' },
-            ]}
-          >
-            <html lang="en" />
-          </Helmet>
-          <Container>
-            <Inner>
-              {/* {this.renderMenuButton(styles)} */}
-              <HideAt
-                style={{
-                  flex: '0 0 280px',
-                  overflowY: 'auto',
-                }}
-                breakpoint="small"
-              >
+        `}
+        render={data => (
+          <>
+            <Helmet
+              // title={data.site.siteMetadata.title}
+              meta={[
+                { name: 'description', content: 'Sample' },
+                { name: 'keywords', content: 'sample, something' },
+              ]}
+            >
+              <html lang="en" />
+            </Helmet>
+            <Container>
+              <Inner>
                 {showSidebar && (
-                  <SidebarContainer>
-                    <Sidebar currentSection={section} />
-                  </SidebarContainer>
+                  <HideAt
+                    style={{
+                      flex: '0 0 280px',
+                      overflowY: 'auto',
+                    }}
+                    breakpoint="small"
+                  >
+                    <SidebarContainer tabIndex="-1">
+                      <Sidebar currentSection={section} />
+                    </SidebarContainer>
+                  </HideAt>
                 )}
-              </HideAt>
-              <Content>
-                <Page title={title} footer={footer}>
-                  <PageHeader
-                    title={title}
-                    author={author.name || '@dvnabbott'}
-                    authorURL={author.url || 'https://twitter.com/dvnabbott'}
-                  />
-                  {children}
-                </Page>
-              </Content>
-            </Inner>
-            {/* {responsive.match("small|mobile") &&
+                <Content>
+                  <HideAt style={{ position: 'absolute' }} breakpoint="small">
+                    <MenuButtonContainer>
+                      <HamburgerButton onPress={this.toggleSidebar} />
+                    </MenuButtonContainer>
+                  </HideAt>
+                  <Page title={title} footer={footer}>
+                    <PageHeader
+                      title={title}
+                      author={author.name || '@dvnabbott'}
+                      authorURL={author.url || 'https://twitter.com/dvnabbott'}
+                    />
+                    {children}
+                  </Page>
+                </Content>
+              </Inner>
+              {/* {responsive.match("small|mobile") &&
               showMenu &&
               <Sidebar
                 style={styles.menu}
                 currentSection={section}
                 centered={true}
               />} */}
-          </Container>
-        </>
-      )}
-    />
-  )
+            </Container>
+          </>
+        )}
+      />
+    )
+  }
 }
 
-Layout.propTypes = {
+ChapterPage.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Layout
+export default ChapterPage

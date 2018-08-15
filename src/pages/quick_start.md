@@ -10,7 +10,7 @@ You'll need Node.js installed, so if you don't have it already, download the ins
 
 ## Installation
 
-First, let's install \`create-react-native-app\` (CRNA). [CRNA](https://github.com/react-community/create-react-native-app) is a command-line tool for easily starting a new React Native project.
+First, let's install `create-react-native-app` (CRNA). [CRNA](https://github.com/react-community/create-react-native-app) is a command-line tool for easily starting a new React Native project.
 
 ```bash
 npm install -g create-react-native-app
@@ -36,7 +36,7 @@ If you see this, success! You're ready to start working on your new React Native
 
 ## Making Changes
 
-Try changing the text in \`App.js\`, saving the file, and watching it update on your device.
+Try changing the text in `App.js`, saving the file, and watching it update on your device.
 
 ## Up Next
 
